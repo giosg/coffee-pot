@@ -13,7 +13,7 @@ def labelize_picture_left_sides(request):
     Shows the HTML page for labelizing unlabeled left-sides of pictures.
     """
     form_set = modelformset_factory(Picture, form=PictureLeftLabelizerForm, extra=0)
-    pics = Picture.objects.filter(left_label__isnull=True).order_by('created_at')[0:50]
+    pics = Picture.objects.filter(left_label__isnull=True).order_by('-created_at')[0:50]
     if request.method == 'POST':
         formset = form_set(request.POST, request.FILES, queryset=pics)
         if formset.is_valid():
@@ -33,7 +33,7 @@ def labelize_picture_right_sides(request):
     Shows the HTML page for labelizing unlabeled right-sides of pictures.
     """
     form_set = modelformset_factory(Picture, form=PictureRightLabelizerForm, extra=0)
-    pics = Picture.objects.filter(right_label__isnull=True).order_by('created_at')[0:50]
+    pics = Picture.objects.filter(right_label__isnull=True).order_by('-created_at')[0:50]
     if request.method == 'POST':
         formset = form_set(request.POST, request.FILES, queryset=pics)
         if formset.is_valid():
@@ -53,7 +53,7 @@ def labelize_pictures(request):
     Shows the HTML page for labelizing unlabeled pictures.
     """
     form_set = modelformset_factory(Picture, form=PictureLabelizerForm, extra=0)
-    pics = Picture.objects.filter(label__isnull=True).order_by('created_at')[0:50]
+    pics = Picture.objects.filter(label__isnull=True).order_by('-created_at')[0:50]
     if request.method == 'POST':
         formset = form_set(request.POST, request.FILES, queryset=pics)
         if formset.is_valid():
