@@ -1,4 +1,5 @@
+SHELL=/bin/bash
 # Execute the Python script every minute
-* * * * * cd /usr/src/app && ( date; env - `cat envdump.txt` python manage.py capture --scheduled --notify; ) >> /srv/logs/cronjobs.log 2>&1
+* * * * * cd /usr/src/app && ( date; < envdump.txt readarray -t ARRAY_ENV && env - "${ARRAY_ENV[@]}" python manage.py capture --scheduled --notify; ) >> /srv/logs/cronjobs.log 2>&1
 # Reboot the device every night
 0 4 * * * ( date; /sbin/shutdown -r +5; ) &>> /srv/logs/reboot.log
